@@ -2,6 +2,15 @@ import random as r
 import time as t
 from character import *
 
+# 추가 수정할 내역
+# 캐릭터 설정 스크립트 보완
+# 적군 전투시스템 및 스탯 조정
+# 아이템 저장 후 아이템 사용하는 것
+# 등등...
+
+# 완성된 부분
+# 기본 전투 루프
+# 아이템 피킹
 
 class BattleManager():
     def __init__(self):
