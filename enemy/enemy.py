@@ -71,8 +71,20 @@ class Enemy:
             "씨몽키의 육지버전이 뭔 줄 알아? 정답은 거울 속에 있지!"
             ]
         return r.choice(taunt)
-    
-    def attack(self):
+
+    def attacked(self,value):
+        self.health-=value
+        if self.health<=0:
+            print(f"     {self.name}은 싸늘하게 식었다...")
+        else:
+            print(f"      {self.name}, {value}만큼 피해! 남은 체력: {self.health}")
+
+    def attack(self,value):
         attack_damage=r.randint(1,3)
+        print(f"      {value}님에게 {attack_damage}데미지 피해!")
         return attack_damage
     
+
+class Jjol(Enemy):
+    def __init__(self):
+        pass
