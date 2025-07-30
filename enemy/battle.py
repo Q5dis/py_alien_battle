@@ -50,6 +50,9 @@ class BattleManager:
         print("  ]")
         self.turn-=1
     
+    
+
+
     def item_picking(self):
         self.picked_item=""
         for i in range(3):
@@ -69,7 +72,6 @@ class BattleManager:
         else:
             print("       >> 아무것도 나오지 않았다...")
             return False
-
 
 
 class LoveManager(BattleManager):

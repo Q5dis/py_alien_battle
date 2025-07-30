@@ -94,29 +94,45 @@ for i in range(5):
     bat.day_count()
     
     for j in range(15): # 한 라운드는 15턴, 죽거나 턴이 다하면 종료
+        # enem=Enemy(level) 적 생성
         if user.health<=0:
             print("사망")
             is_dead=True
             break
+        # if 첫턴이고 직업이 건맨이 아닌경우 
+        # 적이 공격한다
+        # 유저가 공격받다
+        # 아래 턴매니저와 스태터스에서 깎인상태 출력
         bat.turn_manager()
         user.option_select()
         user.status_print()
+        
         select=input(f"      {user.name}의 선택은? >>> ")
         user.attack(select)
-        if user.my_class=="엘크":
-            continue
-        else:
-            is_picked=bat.item_picking()
-            if is_picked==True:
-                print("      아이템을 장착하시겠습니까? \n      이전에 장착한 아이템이 있다면 교체됩니다.")
-                a=input("      (y/n): ")
-                if a=="y":
-                    user.item=bat.picked_item
-                    print("      !! 성공적으로 교체되었습니다.")
-                elif a=="n":
-                    print("      !! 아이템이 유지되었습니다.")
-                else:
-                    print("      ?! 의사표현을 확실하게 하지 않아서 현재 가진 아이템도 소멸되었습니다.")
+        
+        # 일단 레벨은 데이 카운트에 있고
+        # 레벨에 맞는 적이 나온다.
+        
+        # enem=attacked
+        # enem=attack
+
+    if user.my_class=="엘크":
+        continue
+    else:
+        print("      -------   전  투  성 공   ------- ")
+        print("              이제 시체를 루팅하자.")
+        is_picked=bat.item_picking()
+        if is_picked==True:
+            print("      아이템을 장착하시겠습니까? \n      이전에 장착한 아이템이 있다면 교체됩니다.")
+            a=input("      (y/n): ")
+            if a=="y":
+                user.item=bat.picked_item
+                print("      !! 성공적으로 교체되었습니다.")
+            elif a=="n":
+                print("      !! 아이템이 유지되었습니다.")
+            else:
+                user.item=""
+                print("      ?! 의사표현을 확실하게 하지 않아서 현재 가진 아이템도 소멸되었습니다.")
     if is_dead:
         break
 

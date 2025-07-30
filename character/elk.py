@@ -18,14 +18,20 @@ class Elk(c.DefaultCharacter):
             print("      # 엘크의 기본공격! 너무 아프다!")
             return self.damage
         
-        elif self.select=="2":
-            is_succeed=bool(r.randint(1,101)%2==0)
-            if is_succeed==True:
+        elif value == "2":
+            if self.skill <= 0:
+                print("      # 더 이상 박치기를 사용할 수 없습니다!")
+                return 0
+            self.skill -= 1
+            is_succeed = r.randint(1, 101) % 2 == 0
+            if is_succeed:
                 print("      # 박치기 대성공! 외계인은 즉사했다!!")
                 return 99999999
             else:
                 print("      # 박치기 대실패... 머리가 조금 아프다...\n      # 체력 -1")
-                self.health -=1
+                self.health -= 1
+                return 0
+
         elif self.select=="3":
             taunt=[
                 "무어어~~ 무어어어어.",

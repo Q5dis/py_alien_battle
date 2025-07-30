@@ -5,7 +5,7 @@ class DefaultCharacter:
         self.name=""
 
         self.health=10
-        self.damage=1
+        self.damage=2
         self.skill=2
 
         self.item="" # 아이템은 하나만 장착가능
@@ -57,8 +57,28 @@ class DefaultCharacter:
                 self.health=self.base_h
                 self.item=""
             elif self.item=="방귀탄":
-                print("      # 방귀탄을 사용했습니다. 적 전멸!")
-                passitem_list=["회복물약","방귀탄","플라즈마폭탄"]
+                print("      # 방귀탄을 사용했습니다.")
+                print("      # 현재 적 사망!!!")
+                self.item=""
+                return 9999999
+            elif self.item=="플라즈마폭탄":
+                print("      # 플라즈마폭탄을 사용했습니다.")
+                print(r"""
+    _.-^^---....,,--
+ _--                  --_
+<                        >)
+|                         |
+ \._                   _./
+    '''--. . , ; .--'''
+          | |   |
+       .-=||  | |=-.
+       `-=#$%&%$#=-'
+          | ;  :|
+ _____.,-#%&$@%#&#~,._____
+""")
+                print("      적이 전멸했습니다... ")
+                return "AllDead"
+
 
     def levelup(self):
         # 레벨업시 체력 2 증가
