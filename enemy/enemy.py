@@ -10,13 +10,15 @@ class Enemy:
         self.love=3
 
     def taunt(value):
-        taunt_list=[
-            "다리 두개 달린 괴물녀석, 썰어주마!",
+        taunt=[
+            "자자 착한 지구인아, 제자리로 돌아가라고.",
             "사료재료면 얌전하게 갇혀있을것이지!!",
-            f"네 이름이 {value}라고? 그런 멍청한 이름은 처음듣는다!",
-            "촉수의 매운 맛을 보여주마!",
-            "이 "
+            f"네 이름이 {value}라고? 지구인들은 원래 그렇게 작명센스가 구린가?",
+            "*조롱하듯이 촉수를 흐느적거린다.*"
+            "꾸웨에에에에엑! 우리한테 지구말은 다 이렇게 들려."
         ]
+        return r.choice(taunt)
+    
     def attack():
         attack_damage=r.randint(1,3)
         return attack_damage
