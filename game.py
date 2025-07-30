@@ -78,6 +78,13 @@ elif temp=="4":
     user.name=name
     text.text_print(user.info_print())
     t.sleep(1)
+else:
+   classes = [Smacker(), Gunman(), Elk()]
+   print("     !! 에라 모르겠다, 당신은 운명에 몸을 맏깁니다...\n") # 랜덤선택
+   user = r.choice(classes)
+   user.name = name
+   text.text_print(user.info_print())
+   t.sleep(1)
 
 bat=BattleManager()
 
@@ -95,9 +102,21 @@ for i in range(5):
         user.option_select()
         user.status_print()
         select=input(f"      {user.name}의 선택은? >>> ")
-        user.option_selected(select)
-        
-
+        user.attack(select)
+        if user.my_class=="엘크":
+            continue
+        else:
+            is_picked=bat.item_picking()
+            if is_picked==True:
+                print("      아이템을 장착하시겠습니까? \n      이전에 장착한 아이템이 있다면 교체됩니다.")
+                a=input("      (y/n): ")
+                if a=="y":
+                    user.item=bat.picked_item
+                    print("      !! 성공적으로 교체되었습니다.")
+                elif a=="n":
+                    print("      !! 아이템이 유지되었습니다.")
+                else:
+                    print("      ?! 의사표현을 확실하게 하지 않아서 현재 가진 아이템도 소멸되었습니다.")
     if is_dead:
         break
 

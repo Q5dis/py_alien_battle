@@ -9,14 +9,22 @@ class Elk(c.DefaultCharacter):
         self.base_d=5
         self.damage=5
 
-    def attack(self):
-        if self.select=="elk":
+    def attack(self,value):
+        if value=="x":
             return "      당신은 엘크라 아이템 사용이 불가능합니다.\n     손을 쓸 수 없어 슬퍼졌습니다..."
+        
+        elif value=="1":
+            print("      # 음무어어어어!!!!!!!!!!!!!")
+            print("      # 엘크의 기본공격! 너무 아프다!")
+            return self.damage
+        
         elif self.select=="2":
             is_succeed=bool(r.randint(1,101)%2==0)
             if is_succeed==True:
+                print("      # 박치기 대성공! 외계인은 즉사했다!!")
                 return 99999999
             else:
+                print("      # 박치기 대실패... 머리가 조금 아프다...\n      # 체력 -1")
                 self.health -=1
         elif self.select=="3":
             taunt=[

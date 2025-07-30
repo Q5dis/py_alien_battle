@@ -12,7 +12,9 @@ from character import *
 # 기본 전투 루프
 # 아이템 피킹
 
-class BattleManager():
+class BattleManager:
+    picked_item=""
+
     def __init__(self):
         self.enemy_amount=0
         self.turn=15
@@ -49,6 +51,7 @@ class BattleManager():
         self.turn-=1
     
     def item_picking(self):
+        self.picked_item=""
         for i in range(3):
             t.sleep(0.5)
             print("\n      뒤적...")
@@ -61,8 +64,11 @@ class BattleManager():
 
         if drop_or_not%2==0:
             print(f"      >> 획득한 아이템: {item_picked}!")
+            self.picked_item=item_picked
+            return True
         else:
             print("       >> 아무것도 나오지 않았다...")
+            return False
 
 
 
