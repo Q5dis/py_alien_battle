@@ -80,23 +80,24 @@ elif temp=="4":
     t.sleep(1)
 
 bat=BattleManager()
-bat.day_count()
 
 is_dead=False
-
+level_now=0
 for i in range(5): 
-    for j in range(15):
+    bat.day_count()
+    
+    for j in range(15): # 한 라운드는 15턴, 죽거나 턴이 다하면 종료
         if user.health<=0:
             print("사망")
             is_dead=True
             break
-        
         bat.turn_manager()
         user.option_select()
         user.status_print()
         select=input(f"      {user.name}의 선택은? >>> ")
         user.option_selected(select)
         
+
     if is_dead:
         break
 

@@ -17,6 +17,15 @@ class Seducer(c.DefaultCharacter):
         self.charm=self.base_c
         return super().reset_to_base()
         
+    def option_selected(self,value):
+        if value=="1":
+            self.select="1"
+        elif value=="2":
+            self.select="2"
+        elif value=="3":
+            self.select="3"
+        else:
+            self.select="elk"
 
     def info_print(self):
         return """
@@ -47,3 +56,4 @@ class Seducer(c.DefaultCharacter):
 
     def option_select(self):
         print(f"      [    1.달콤한말  2.특수능력  3.모욕하기    ")
+        # 모욕하는 즉시 총맞고 즉사

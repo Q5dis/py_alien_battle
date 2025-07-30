@@ -1,4 +1,5 @@
 import character as c
+import random as r
 # 엘크가 되어 살인
 class Elk(c.DefaultCharacter):
     def __init__(self):
@@ -7,6 +8,27 @@ class Elk(c.DefaultCharacter):
         # 데미지가 강하지만 인벤토리가 봉인된다.
         self.base_d=5
         self.damage=5
+
+    def attack(self):
+        if self.select=="elk":
+            return "      당신은 엘크라 아이템 사용이 불가능합니다.\n     손을 쓸 수 없어 슬퍼졌습니다..."
+        elif self.select=="2":
+            is_succeed=bool(r.randint(1,101)%2==0)
+            if is_succeed==True:
+                return 99999999
+            else:
+                self.health -=1
+        elif self.select=="3":
+            taunt=[
+                "무어어~~ 무어어어어.",
+                "무어어어어!",
+                "*화난 엘크 울음소리*",
+                "므으으음... 므으음!! 무어어~~",
+                "무어어~~ 무우우!!!",
+                "무어어~~ 무어~~ 무어어어~~~"
+            ]
+            return r.choice(taunt)
+        return super().attack()
 
     def info_print(self):
         return """

@@ -23,6 +23,8 @@ class BattleManager():
      _______________________________________
 """)
         self.day+=1
+        self.turn=15
+        
 
     def turn_manager(self):
         on="■"
