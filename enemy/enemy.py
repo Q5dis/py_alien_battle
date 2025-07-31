@@ -1,4 +1,5 @@
 import random as r
+import time as t
 class Enemy:
     def __init__(self):
         # 기본정보
@@ -75,13 +76,15 @@ class Enemy:
     def attacked(self,value):
         self.health-=value
         if self.health<=0:
-            print(f"     {self.name}은 싸늘하게 식었다...")
+            t.sleep(0.5)
+            print(f"     >> {self.name}은 싸늘하게 식었다...")
         else:
-            print(f"      {self.name}, {value}만큼 피해! 남은 체력: {self.health}")
+            t.sleep(0.5)
+            print(f"      >> {self.name}, {value}만큼 피해! 남은 체력: {self.health}")
 
     def attack(self,value):
-        attack_damage=r.randint(1,3)
-        print(f"      {value}님에게 {attack_damage}데미지 피해!")
+        attack_damage=r.randint(1,self.damage+1)
+        print(f"      >> {value}님에게 {attack_damage}데미지 피해!")
         return attack_damage
     
 
@@ -91,6 +94,9 @@ class Lv_1(Enemy):
         self.name="쫄따구 외계인"
         self.health=6
         self.damage=1
+    def attack(self, value):
+        print("      >> 쫄병의 촉수 싸대기 공격!!")
+        return super().attack(value)
 
 class Lv_3(Enemy):
     def __init__(self):
@@ -98,7 +104,10 @@ class Lv_3(Enemy):
         self.name="중산층 외계인"
         self.health=6
         self.damage=2
-    def taunt(self):
+    def attack(self, value):
+        print("      >> 중산층 외계인의 돌팔매 공격!!")
+        return super().attack(value)
+    def taunt(self,value):
         taunts = [
             "내 촉수도 대출로 샀다. 우린 그런 시대에 살고 있거든.",
             "외계 부동산? 지구보다 미쳤다. 여긴 공중에 떠 있는 단지야.",
@@ -128,6 +137,11 @@ class Lv_4(Enemy):
         self.name="과학자 외계인"
         self.health=4
         self.damage=3
+
+    def attack(self, value):
+        print("      >> 과학자 외계인의 플라스크 공격!!")
+        return super().attack(value)
+    
     def taunt(self, value):
         taunts = [
             f"흥미롭군... {value}, 네 반응속도가 예상보다 0.3초 느려.",
@@ -152,9 +166,13 @@ class Lv_Boss(Enemy):
         self.health=15
         self.damage=3
 
+    def attack(self, value):
+        print("      >> 보스의 낙지맨-power5000 발사!!")
+        return super().attack(value)
+
     def taunt(self, value):
         taunts = [
-            f"{value}... 그 이름, 왠지 익숙하군. 나도 한때 그런 이름을 가졌지.",
+            f"{value}... 그 이름, 왠지 익숙하군. 스스로 지은 이름인가?",
             "나는 네가 상상도 못할 방식으로 살아남았고, 결국 여기에 이르렀다.",
             "* 그 눈빛엔 인간의 과거와 외계의 냉혹함이 공존한다 *",
             "이 세계의 룰은 간단해. 감정은 버려야 한다는 것.",

@@ -20,12 +20,12 @@ class Elk(c.DefaultCharacter):
         
         elif value == "2":
             if self.skill <= 0:
-                print("      # 더 이상 박치기를 사용할 수 없습니다!")
+                print("      --- 스킬 포인트가 없어 스킬사용이 불가합니다. 턴이 낭비되었습니다.")
                 return 0
             self.skill -= 1
             is_succeed = r.randint(1, 101) % 2 == 0
             if is_succeed:
-                print("      # 박치기 대성공! 외계인은 즉사했다!!")
+                print("      # [ 박치기 대성공! ] 외계인은 즉사했다!!")
                 return 99999999
             else:
                 print("      # 박치기 대실패... 머리가 조금 아프다...\n      # 체력 -1")
@@ -67,7 +67,7 @@ class Elk(c.DefaultCharacter):
      그러나 신체의 변화로 아이템을 사용할 수 없습니다.
               
      특수공격: 박치기!
-     현재 공격중인 적을 강력한 박치기로 즉사시킵니다.
+     현재 상대하는 적을 강력한 박치기로 즉사시킵니다.
      확률은 되거나 안되거나 둘 중 하나. 실패 시 본인이 1 데미지를 입습니다.
      라운드 중 딱 두 번 사용 가능합니다.
 """

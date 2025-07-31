@@ -20,7 +20,10 @@ class DefaultCharacter:
         self.health-=value
     
     def attack(self,value): # 옵션에 따라 데미지를 반환
-        if value=="3":
+        if value=="1":
+            print(f"      # {self.name}님의 기본공격, {self.damage}데미지 공격!")
+            return self.damage
+        elif value=="3":
             taunt=[
                 "이 크툴루 짝퉁 외계인 놈들아!",
                 "태어나면서 부터 탈모라니 불쌍하군!",
@@ -77,12 +80,14 @@ class DefaultCharacter:
  _____.,-#%&$@%#&#~,._____
 """)
                 print("      적이 전멸했습니다... ")
-                return "AllDead"
+                return 99999999
 
 
     def levelup(self):
         # 레벨업시 체력 2 증가
         self.health+=2
+        self.damage+=1
+        self.skill+=1
     
     def damage_up(self,value):
         # 데미지 값 올릴 일 있을때
@@ -106,9 +111,9 @@ class DefaultCharacter:
         pass
     def status_print(self):
         if self.item=="":
-            print(f"      [ {self.my_class} | {self.base_h}/{self.health} | 남은능력:{self.skill} | 아이템[x] ")
+            print(f"      [ {self.my_class} | {self.health}/{self.base_h} | 남은능력:{self.skill} | 아이템[x] ")
         else:
-            print(f"      [ {self.my_class} | {self.base_h}/{self.health} | 남은능력:{self.skill} | 아이템[{self.item}] ")
+            print(f"      [ {self.my_class} | {self.health}/{self.base_h} | 남은능력:{self.skill} | 아이템[{self.item}] ")
     
     def option_selected(self,value):
         if value=="1":

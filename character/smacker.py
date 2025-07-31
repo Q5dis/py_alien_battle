@@ -10,6 +10,15 @@ class Smacker(c.DefaultCharacter):
         self.base_d*=2
         self.damage=self.base_d
 
+    def attack(self, value):
+        if value=="2":
+            if self.skill<=0:
+                print("      --- 스킬 포인트가 없어 스킬사용이 불가합니다. 턴이 낭비되었습니다.")
+            else:
+                print(f"      # 흐어! [ 먼지로 돌아가라! ] 현재 적에게 추가 2 데미지, {self.damage+2} 데미지 공격!")
+                self.skill-=1
+            return self.damage+2
+        return super().attack(value)
     def info_print(self):
         return """
      당신은 눈 앞에 보이는 가장 기본적인 무기를 집습니다.
@@ -23,8 +32,7 @@ class Smacker(c.DefaultCharacter):
      당신의 직업은 [ 스매커 ] 후려치는 자 입니다.
      당신의 공격력은 레벨업 할 때 마다 두배가 됩니다!
               
-     특수공격: 연속감전!
-     현재 공격중인 적에게 추가 2 데미지를 주고 뒤에 대기중인
-     적에게 최대 5의 데미지를 넣습니다.
-     라운드 중 딱 두 번 사용 가능합니다.
+     특수공격: 먼지로 돌아가라!
+     현재 공격중인 적에게 추가 2 데미지를 줍니다.
+     라운드 중 딱 한 번 사용 가능합니다.
 """
