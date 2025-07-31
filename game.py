@@ -9,7 +9,7 @@ class TextPrint():
     def text_print(self,text):
         for line in text.split('\n'):
             print(line)
-            t.sleep(0.1)
+            t.sleep(0.5)
 
 text=TextPrint()
 text.text_print(
@@ -32,19 +32,7 @@ text.text_print(
 
 저 망할 촉수쟁이들에게 본때를 보여주겠어!!!!!!!
 
-아... 그리고 참고로...
-아이템 사용 키는...
-.
-.
-
-"x"
-.
-.
-
-니까...
-
-잊지 말도록 하자...?
-꼭...!!
+* 참고로 아이템사용은 x 이다
       
 .·*¨`*·.·*¨`*·.·*¨`*·..·*¨`*·.·*¨`*·.·*¨`*·.
 """)
@@ -108,7 +96,7 @@ for i in range(5):  # 5일간 전투
         enem = Lv_3()
     elif bat.day == 4:
         enem = Lv_4()
-    else:
+    elif bat.day ==5:
         enem = Lv_Boss()
         text.text_print("""
      드디어 도착한 우주선의 함장실.
@@ -132,9 +120,12 @@ for i in range(5):  # 5일간 전투
     그 역시 당신처럼 함선에 납치된 시민이었다.
     그러나 이제 그는 외계인의 모습으로
     지구인들을 가차없이 학살하는 괴물이 되어있었다...
-
-    '... 어리석은 속셈은 집어치우시지, 인간.'          
+ 
 """)
+        if user.my_class=="건맨":
+            print("      '...익숙한 총을 들고 있군.")
+        if user.my_class=="스매커":
+            enem.if_smacker()
 
     for j in range(15):  # 15턴
         if user.health <= 0:
@@ -142,79 +133,80 @@ for i in range(5):  # 5일간 전투
             is_dead = True
             break
         if enem.health <= 0:
-            print(f"      !! {enem.name} 사망")
-            break
-        elif enem.health <=0 and bat.day==5:
-            t.sleep(0.5)
-            print("      드디어 당신은 보스를 처치했다...!!")
-            t.sleep(0.5)
-            print("      입에서 초록색 피를 흘리는 두목이 당신에게 무언가 말한다...")
-            t.sleep(0.5)
-            print("      ....")
-            t.sleep(0.5)
-            print("      ....")
-            t.sleep(0.5)
-            print("      ....")
-            t.sleep(0.5)
-            print("      ....")
-            t.sleep(0.5)
-            print("      ' 매일 프로그래머스 문제 하나씩 푸세요 '")
-            t.sleep(0.5)
-            print("      ------- 게임 클리어!! -------")
+            print(f"\n       !! {enem.name} 사망")
+            break     
         
         print("\n")
-        bat.turn_manager() # 턴 수 출력
-        user.status_print() # 스탯 출력
-        user.option_select() # 옵션 출력
+        if user.my_class!="건맨":
+            bat.turn_manager() # 턴 수 출력
+            user.status_print() # 스탯 출력
+            user.option_select() # 옵션 출력
+        elif user.my_class=="건맨":
+            user.gun_manager()
+            user.status_print() # 스탯 출력
+            user.option_select() # 옵션 출력
 
         if user.my_class == "건맨":
             # 건맨이 먼저 공격
             select = input(f"      # {user.name}의 선택은? >>> ")
-            damage_to_enemy = user.attack(select)
-            if isinstance(damage_to_enemy, int):
+            if select=="3":
+                print("      # - 당신은 외계인의 눈 앞에서 모욕한다.")
                 t.sleep(0.5)
-                enem.attacked(damage_to_enemy)
+                taunt=user.taunt()
+                print(f"      # - {taunt}\n")  
                 t.sleep(0.5)
-            if enem.health > 0:
-                t.sleep(0.5)
-                damage_to_user = enem.attack(user.name)
-                t.sleep(0.5)
-                user.health -= damage_to_user
-                t.sleep(0.5)
-                print(f"      # - {user.name}님은 {damage_to_user}만큼 피해! 현재 체력: {user.health}\n")
-                t.sleep(0.5)
+                print(f"      # - 별 효과는 없지만 외계인은 화가났다.")  
+            else:
+                damage_to_enemy = user.attack(select)
+                if isinstance(damage_to_enemy, int):
+                    t.sleep(0.5)
+                    enem.attacked(damage_to_enemy)
+                    t.sleep(0.5)
+                if enem.health > 0:
+                    t.sleep(0.5)
+                    damage_to_user = enem.attack(user.name)
+                    t.sleep(0.5)
+                    user.health -= damage_to_user
+                    t.sleep(0.5)
+                    print(f"      # - {user.name}님은 {damage_to_user}만큼 피해! 현재 체력: {user.health}\n")
+                    t.sleep(0.5)
 
         else:
             # 적이 먼저 공격
-            t.sleep(0.5)
+            t.sleep(1)
             print(f"      > {enem.taunt(user.name)}")
-            t.sleep(0.5)
+            t.sleep(1)
             damage_to_user = enem.attack(user.name)
             user.health -= damage_to_user
-            t.sleep(0.5)
+            t.sleep(1)
             print(f"      > - {user.name}님은 {damage_to_user}만큼 피해! 현재 체력: {user.health}\n")
-            
+            t.sleep(1)
+
             if user.health <= 0:
                 is_dead = True
                 break
 
             select = input(f"      # {user.name}의 선택은? >>> ")
-            if select !="x":
-                t.sleep(0.5)
-                damage_to_enemy = user.attack(select) # 유저의 공격값을 저장
-                t.sleep(0.5)
-                enem.attacked(damage_to_enemy) # 그 값을 토대로 공격당함.
-            print("")
+            if select != "x": 
+                if select=="1" or select =="2":
+                    damage_to_enemy = user.attack(select)
+                    t.sleep(0.5)
+                    enem.attacked(damage_to_enemy)
+                elif select=="3":
+                    print("      # - 당신은 외계인의 눈 앞에서 모욕한다.")
+                    t.sleep(0.5)
+                    taunt=user.taunt()
+                    print(f"      # - {taunt}\n")  
+                    t.sleep(0.5)
+                    print(f"      # - 별 효과는 없지만 외계인은 화가났다.")  
+            else:
+                damage_to_enemy = user.use_item()
+                if isinstance(damage_to_enemy, int) and damage_to_enemy > 0:
+                    t.sleep(0.5)
+                    enem.attacked(damage_to_enemy)
+                    t.sleep(0.5)
 
-            if isinstance(damage_to_enemy, str):
-                t.sleep(0.5)
-                print("      # - 당신은 외계인의 눈 앞에서 모욕한다.")
-                t.sleep(0.5)
-                print(f"      # - {damage_to_enemy}\n")  
-                t.sleep(0.5)
-                print(f"      # - 별 효과는 없지만 외계인은 화가났다.\n")  
-
-            print(" _________________________________________________________ ")
+                print("      __________________________________________ ")
         if is_dead:
             break
     if is_dead:
@@ -226,13 +218,17 @@ for i in range(5):  # 5일간 전투
         print("      -- 게임 오버! 당신의 시체는 사료가 되었습니다. --")
         break
     # 전투 성공 후 아이템 처리 등
-    if user.my_class != "엘크":
-        print("      ------- 전투 성공 -------")
+    # 전투 성공 후 아이템 처리 등
+    if user.my_class != "엘크" and bat.day<5:
+        print("\n      ------- 전투 성공 -------")
         print("      이제 시체를 루팅하자.")
-        is_picked = bat.item_picking()
-        if is_picked:
+        result_type, result_value = bat.item_picking(user.my_class)
+        
+        if result_type == "bullet":
+            user.add_bullet(result_value)
+        elif result_type == "item" and result_value:
             print("      > 아이템을 장착하시겠습니까? 이전에 장착한 아이템이 있다면 교체됩니다.")
-            a = input("(y/n): ")
+            a = input("      (y/n): ")
             if a == "y":
                 user.item = bat.picked_item
                 print("      성공적으로 장착되었습니다.")
@@ -241,3 +237,38 @@ for i in range(5):  # 5일간 전투
             else:
                 user.item = ""
                 print("      의사표현이 확실하지 않아 현재 가진 아이템도 소멸되었습니다.")
+if bat.day==5:
+   text.text_print("""
+     드디어... 끝났다.
+                       
+     보스 이안이 무릎을 꿇으며 바닥에 쓰러진다.
+     초록색 피가 바닥에 웅덩이를 만들고...
+                       
+     그의 눈에서는 더 이상 광기가 보이지 않는다.
+     오히려... 해방감 같은 것이 느껴진다.
+                       
+     떨리는 목소리로 그가 속삭인다.
+                       
+     '나는... 이미 인간이 아니었어...'
+     '하지만 너는... 아직 인간이군...'
+                       
+     그의 변형된 손이 허공을 향해 뻗어진다.
+                       
+     '부탁이 있어...'
+     '지구로... 돌아가거든...'
+     '절대 포기하지 마...'
+     '매일...'
+                       
+     그의 목소리가 점점 작아진다.
+                       
+     '매일...'
+     '프로그래머스...'
+     '문제...'
+     '하나씩...'
+     '푸세요...'
+                       
+     그리고 그는 조용히 눈을 감았다.
+                   
+
+                   - end -
+""")

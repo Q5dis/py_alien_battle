@@ -32,7 +32,7 @@ class Elk(c.DefaultCharacter):
                 self.health -= 1
                 return 0
 
-        elif self.select=="3":
+        elif value=="3":
             taunt=[
                 "무어어~~ 무어어어어.",
                 "무어어어어!",

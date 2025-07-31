@@ -19,12 +19,8 @@ class DefaultCharacter:
     def attacked(self,value):
         self.health-=value
     
-    def attack(self,value): # 옵션에 따라 데미지를 반환
-        if value=="1":
-            print(f"      # {self.name}님의 기본공격, {self.damage}데미지 공격!")
-            return self.damage
-        elif value=="3":
-            taunt=[
+    def taunt(self):
+        taunt=[
                 "이 크툴루 짝퉁 외계인 놈들아!",
                 "태어나면서 부터 탈모라니 불쌍하군!",
                 "점액흘리개 녀석들, 오늘 마침내 숙회로 만들어주마!",
@@ -51,36 +47,46 @@ class DefaultCharacter:
                 "인간을 실험하겠다고? 진화나 마저 하고 와라.",
                 "야, 초장가져와!!!!!!!!!"
                 ]
-            return r.choice(taunt)
-        if value=="x":
-            if self.item=="":
-                print("      # 사용할 수 있는 아이템이 없습니다. 턴이 낭비되었습니다!")
-            elif self.item=="회복물약":
-                print("      # 회복물약을 사용했습니다. 체력 모두 회복!")
-                self.health=self.base_h
-                self.item=""
-            elif self.item=="방귀탄":
-                print("      # 방귀탄을 사용했습니다.")
-                print("      # 현재 적 사망!!!")
-                self.item=""
-                return 9999999
-            elif self.item=="플라즈마폭탄":
-                print("      # 플라즈마폭탄을 사용했습니다.")
-                print(r"""
-    _.-^^---....,,--
- _--                  --_
-<                        >)
-|                         |
- \._                   _./
-    '''--. . , ; .--'''
-          | |   |
-       .-=||  | |=-.
-       `-=#$%&%$#=-'
-          | ;  :|
- _____.,-#%&$@%#&#~,._____
-""")
-                print("      적이 전멸했습니다... ")
-                return 99999999
+        return r.choice(taunt)
+
+    def attack(self,value): # 옵션에 따라 데미지를 반환
+        if value=="1":
+            print(f"      # {self.name}님의 기본공격, {self.damage}데미지 공격!")
+            return self.damage
+    
+    def use_item(self):
+        if self.item=="":
+            print("      # 사용할 수 있는 아이템이 없습니다. 턴이 낭비되었습니다!")
+            return 0
+        elif self.item=="회복물약":
+            print("      # 회복물약을 사용했습니다. 체력 모두 회복!")
+            self.health=self.base_h
+            self.item=""
+            return 0
+        elif self.item=="방귀탄":
+            print("      # 방귀탄을 사용했습니다.")
+            print("      # 현재 적 사망!!!")
+            self.item=""
+            return 9999999
+        elif self.item=="플라즈마폭탄":
+            print("      # 플라즈마폭탄을 사용했습니다.")
+            print(r"""
+        _.-^^---....,,--
+        _--                  --_
+        <                        >)
+        |                         |
+        \._                   _./
+        '''--. . , ; .--'''
+                | |   |
+            .-=||  | |=-.
+            `-=#$%&%$#=-'
+                | ;  :|
+        _____.,-#%&$@%#&#~,._____
+        """)
+            print("      적이 전멸했습니다... ")
+            self.item=""
+            return 99999999
+            
 
 
     def levelup(self):
@@ -88,6 +94,10 @@ class DefaultCharacter:
         self.health+=2
         self.damage+=1
         self.skill+=1
+
+        self.base_d=self.damage
+        self.base_h=self.health
+        self.base_s=self.skill
     
     def damage_up(self,value):
         # 데미지 값 올릴 일 있을때

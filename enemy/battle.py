@@ -52,26 +52,30 @@ class BattleManager:
     
     
 
-
-    def item_picking(self):
+    def item_picking(self, user_class):
         self.picked_item=""
         for i in range(3):
             t.sleep(0.5)
             print("\n      뒤적...")
             t.sleep(0.3)
             print("")
+        
+        if user_class=="건맨":
+            bullet_found=r.randint(4,6)
+            print(f"      >> 총알을 {bullet_found}만큼 찾았다!!")
+            return ("bullet", bullet_found)
+        
         item_list=["회복물약","방귀탄","플라즈마폭탄"]
         item_picked=r.choice(item_list)
-        
         drop_or_not=r.randint(1,101)
 
         if drop_or_not%2==0:
             print(f"      >> 획득한 아이템: {item_picked}!")
             self.picked_item=item_picked
-            return True
+            return ("item", True)
         else:
-            print("       >> 아무것도 나오지 않았다...")
-            return False
+            print("      >> 아무것도 나오지 않았다...")
+            return ("item", False)
 
 
 class LoveManager(BattleManager):

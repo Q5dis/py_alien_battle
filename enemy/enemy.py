@@ -136,7 +136,7 @@ class Lv_4(Enemy):
         super().__init__()
         self.name="과학자 외계인"
         self.health=4
-        self.damage=3
+        self.damage=4
 
     def attack(self, value):
         print("      >> 과학자 외계인의 플라스크 공격!!")
@@ -163,12 +163,17 @@ class Lv_Boss(Enemy):
     def __init__(self):
         super().__init__()
         self.name="보스"
-        self.health=15
+        self.health=20
+        self.damage=4
+        
+    def if_smacker(self):
+        self.health=50
         self.damage=3
 
     def attack(self, value):
         print("      >> 보스의 낙지맨-power5000 발사!!")
-        return super().attack(value)
+        print(f"      >> {value}님에게 {self.damage}데미지 피해!")
+        return self.damage
 
     def taunt(self, value):
         taunts = [
@@ -188,4 +193,3 @@ class Lv_Boss(Enemy):
         ]
         return r.choice(taunts)
 
-        

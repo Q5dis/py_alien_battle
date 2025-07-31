@@ -1,4 +1,5 @@
 import character as c
+import random as r
 # ( -_•)︻デ═一 총으로 살인
 class Gunman(c.DefaultCharacter):
     def __init__(self):
@@ -6,13 +7,43 @@ class Gunman(c.DefaultCharacter):
         self.my_class="건맨"
         self.bullet=8 # 총알을 턴 대신 사용
         self.base_b=self.bullet
-
+    def attack(self, value):
+        if value=="1":
+            print(f"      # {self.name}님의 기본공격, {self.damage}데미지 공격!")
+            return self.damage
+        elif value == "2":
+            if self.skill <= 0:
+                print("      --- 스킬 포인트가 없어 스킬사용이 불가합니다. 턴이 낭비되었습니다.")
+                return 0
+            self.skill -= 1
+            print("      # 빵야! 당신은 [ 연속발사 ] 를 시도했다!")
+            is_succeed = r.randint(1, 101) % 2 == 0
+            if is_succeed:
+                print("      # [ 연속발사 대성공! ] 두 배의 데미지!!")
+                return self.damage*2
+            else:
+                print("      # 연속발사 대실패... 스킬횟수는 성공여부와 상관없이 차감됩니다.")
+                return 0
+            
     def check_bullet(self):
         return self.bullet
     
     def add_bullet(self,value):
         self.base_b+=value
         self.bullet=self.base_b
+
+    def gun_manager(self):
+        on="■"
+        on_turn=self.bullet
+        off="□"
+        off_turn=self.base_b-self.bullet
+        print("      [   ",end="")  # 다른 출력과 맞추기 위해 공백 추가
+        for i in range(on_turn):
+            print(on,end=" ")
+        for i in range(off_turn):
+            print(off,end=" ")
+        print("  ]")
+        self.bullet-=1
     
     def info_print(self):
         return """
